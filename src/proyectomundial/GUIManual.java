@@ -23,6 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import proyectomundial.DAO.SeleccionDAO;
+import proyectomundial.DAO.UsuarioDAO;
 import proyectomundial.model.Seleccion;
 
 public class GUIManual extends JFrame {
@@ -59,7 +60,10 @@ public class GUIManual extends JFrame {
     
     private JPanel jPanelMenuDashboardRes;
     private JLabel btnDashboardRes;
-        
+    // primer boton
+        private JPanel jPanelMenuDashboardSesion;
+    private JLabel btnDashboardSesion;
+    
     // Elementos de panel de contenido
     private JPanel jPanelRight;
     private JPanel jPanelLabelTop;
@@ -111,6 +115,9 @@ public class GUIManual extends JFrame {
         
         jPanelMenuDashboardRes = new JPanel();
         btnDashboardRes = new JLabel();
+        // segundo cambio 
+         jPanelMenuDashboardSesion= new JPanel();
+     btnDashboardSesion= new JLabel();
         
         // Pinta el logo de la aplicación
         pintarLogo();
@@ -129,6 +136,9 @@ public class GUIManual extends JFrame {
         
         // Pinta la opción de Menú del dahboard de resultados
         pintarMenuDashboardRes();
+        // pinta menu del SESION
+        pintarMenuDashboardSesion();
+        
         
         // Pinta y ajuste diseño del contenedor del panel izquierdo
         pintarPanelIzquierdo();
@@ -470,6 +480,35 @@ public class GUIManual extends JFrame {
         jPanelMain.repaint();
         jPanelMain.revalidate();        
     }
+     private void pintarMenuDashboardSesion() {
+        btnDashboardSesion.setIcon(new ImageIcon(getClass().getResource("/resources/icons/dashboard_resultados.png")));
+        btnDashboardSesion.setText("Dash SESION");
+        btnDashboardSesion.setForeground(new java.awt.Color(255, 255, 255));
+        
+        JLabel vacioDashboardResultados = new JLabel();
+        jPanelMenuDashboardSesion.setBackground(new java.awt.Color(17, 41, 63));
+        jPanelMenuDashboardSesion.setPreferredSize((new java.awt.Dimension(220, 35)));
+        jPanelMenuDashboardSesion.setLayout(new BorderLayout(15, 0));
+        jPanelMenuDashboardSesion.add(vacioDashboardResultados, BorderLayout.WEST);
+        jPanelMenuDashboardSesion.add(btnDashboardSesion, BorderLayout.CENTER);
+        jPanelMenu.add(jPanelMenuDashboardSesion);
+        
+        btnDashboardSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                System.out.println("Dashboard Sesion");
+                SESION();
+            }
+        });
+    }
+     
+     public void SESION(){
+         UsuarioDAO ja = new UsuarioDAO();
+         String usuario= (String) JOptionPane.showInputDialog("ingrese su usuario");
+         String contraseña =(String) JOptionPane.showInputDialog("ingrese la contraseña");
+         ja.getSelecciones(usuario, contraseña);
+     }
+     
+     
     
     /**
      * Función que permite darle estilos y agregar los componentes gráficos del contendor de la parte 
